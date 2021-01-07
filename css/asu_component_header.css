@@ -1,0 +1,102 @@
+footer #wrapper-footer-innovation .row, footer #wrapper-footer-colophon .row {
+  margin: 0 auto;
+  width: 1170px;
+}
+footer #wrapper-footer-innovation {
+  background-color: #ffc627;
+  padding: 1.8rem 1rem;
+  background-color: #ffc627;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+}
+footer #wrapper-footer-innovation nav {
+  margin-top: 1rem;
+}
+footer #wrapper-footer-innovation nav a {
+  font-weight: bold;
+  margin-right: 1.5rem;
+  text-decoration: none;
+  color: #191919;
+}
+footer #wrapper-footer-innovation img {
+  float: right;
+  text-align: right;
+  margin-top: -2.5rem;
+  margin-bottom: -1.3rem;
+  max-width: 447px;
+  width: 100%
+}
+footer #wrapper-footer-colophon {
+  padding: 1rem;
+  background-color: #e8e8e8;
+}
+footer #wrapper-footer-colophon nav a {
+  margin-right: 1.5rem;
+  text-decoration: none;
+  color: #191919;
+}
+
+
+@media (max-width: 1260px) {
+  footer #wrapper-footer-innovation .row, footer #wrapper-footer-colophon .row {
+      max-width: 1224px;
+      width: 100%;
+  }
+}
+@media (max-width: 992px) {
+  footer #wrapper-footer-innovation .row, footer #wrapper-footer-colophon .row {
+      max-width: 992px;
+      width: 100%
+  }
+  footer .footer-innovation-links {
+
+  }
+  footer #wrapper-footer-innovation .footer-innovation-links a img {
+    text-align: center;
+    float: none;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  footer .footer-innovation-links nav::before,
+  footer nav.colophon::before {
+    /* Avoid clearfix issue from some themes. */
+    content: none;
+  }
+  footer .footer-innovation-links nav,
+  footer nav.colophon {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: row;
+    /*justify-items: start; We apply start/end to the children themselves, alternatingly, below. */
+    padding: 0 2rem;
+    text-align: left;
+    width: auto;
+  }
+  footer .footer-innovation-links nav a,
+  footer nav.colophon a {
+    justify-self: start;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+  footer .footer-innovation-links nav a:nth-child(even),
+  footer nav.colophon a:nth-child(even) {
+    justify-self: end;
+  }
+}
+/*
+@media (max-width: 768px) {
+  footer #wrapper-footer-innovation .row, footer #wrapper-footer-colophon .row {
+      max-width: 768px;
+      width: 100%;
+  }
+}
+@media (max-width: 576px) {
+  footer #wrapper-footer-innovation .row, footer #wrapper-footer-colophon .row {
+      max-width: 540px;
+      width: 100%;
+  }
+}
+*/
+
+

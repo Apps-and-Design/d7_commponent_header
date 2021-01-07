@@ -1,0 +1,374 @@
+<?php
+/**
+ * @file
+ * Module file for asu_component_header.
+ */
+
+/**
+ * @defgroup asu_component_header ASU: Block
+ * @ingroup examples
+ * @{
+ * Adds a Web Standards 2 Preact-based Header component as a block.
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * Provides a default page to explain what this module does.
+ */
+function asu_component_header_menu() {
+  $items['asu_component_header'] = array(
+    'page callback' => 'asu_component_header_page',
+    'access callback' => TRUE,
+    'title' => 'Block Example',
+  );
+  return $items;
+}
+
+/**
+ * Simple page function to explain what the block example is about.
+ */
+function asu_component_header_page() {
+  $page = array(
+    '#type' => 'markup',
+    '#markup' => t('Adds a Web Standards 2 Preact-based Header component as a block. Enable and configure the Component Header block on <a href="@url">the block admin page</a>.', array('@url' => url('admin/structure/block'))),
+  );
+  return $page;
+}
+
+/**
+ * Implements hook_block_info().
+ *
+ * This hook declares what blocks are provided by the module.
+ */
+function asu_component_header_block_info() {
+  // This hook returns an array, each component of which is an array of block
+  // information. The array keys are the 'delta' values used in other block
+  // hooks.
+
+  // Header component.
+  $blocks['asu_component_header_block'] = array(
+    // info: The name of the block.
+    'info' => t('ASU Component Header'),
+    // Block caching options (per role, per user, etc.)
+    // Don't cache because header changes based on user login state.
+    // TODO Test if we could use DRUPAL_CACHE_PER_USER... ASU Brand didn't use
+    // so following its lead for now.
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  // Footer
+  $blocks['asu_component_header_footer'] = array(
+    'info' => t('ASU Component Footer'),
+    // TODO Change this when footer is converted to source from a component.
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_configure().
+ *
+ * This hook declares configuration options for blocks provided by this module.
+ */
+function asu_component_header_block_configure($delta = '') {
+  $form = array();
+  // The $delta parameter tells us which block is being configured.
+  if ($delta == 'asu_component_header_block') {
+
+    // You gotta give props to our Components Library Header! No, literally:
+    // navTree - automatically built by this module, based on menu injection flag and asu_component_header_sitemenu_name settings.
+    // title - implemented as asu_component_header_title setting.
+    // baseUrl - implemented, derived from Drupal settings.
+    // parentOrg - implemented as asu_component_header_parent_org setting.
+    // parentOrgUrl - implemented as asu_component_header_parent_org_url setting.
+    // logo - TODO HOLD for future, to support partner logos?
+    // loggedIn - relies on default component behavior
+    // userName - relies on default component behavior
+    // loginLink - TODO
+    // logoutLink - TODO
+    // buttons - TODO HOLD for future dev.
+    // breakpoint - relies on default component behavior
+    // animateTitle - relies on default component behavior
+
+    $form['asu_component_header']['asu_component_header_title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Site Name'),
+      '#default_value' => variable_get('asu_component_header_title', variable_get('site_name')),
+      '#description' => t('Site title to appear in the header. Defaults to site name.'),
+      '#required' => TRUE
+    );
+    $form['asu_component_header']['asu_component_header_parent_org'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Parent Unit Name'),
+      '#default_value' => variable_get('asu_component_header_parent_org'),
+      '#description' => t('Optional. Name of the parent unit.'),
+      '#required' => FALSE
+    );
+    $form['asu_component_header']['asu_component_header_parent_org_url'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Parent Department URL'),
+      '#default_value' => variable_get('asu_component_header_parent_org_url'),
+      '#description' => t('Optional. URL of the parent unit.'),
+      '#required' => FALSE
+    );
+
+    $form['asu_component_header']['site_menu'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Site menu injection'),
+      '#collapsed' => FALSE,
+    );
+
+    $form['asu_component_header']['site_menu']['asu_component_header_sitemenu_injection_flag'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Append local site menu into ASU header menu and display in responsive state.'),
+      '#default_value' => variable_get('asu_component_header_sitemenu_injection_flag', 1),
+    );
+
+    $form['asu_component_header']['site_menu']['asu_component_header_sitemenu_name'] = array(
+      '#type' => 'select',
+      '#title' => t('Menu to inject'),
+      '#description' => t('Select the site menu to inject.'),
+      '#options' => asu_component_header_get_site_menu_options(),
+      '#default_value' => variable_get('asu_component_header_sitemenu_name', ASU_BRAND_SITE_MENU_NAME_DEFAULT),
+      '#states' => array(
+          'visible' => array(
+              ':input[name="asu_component_header_sitemenu_injection_flag"]' => array('checked' => TRUE),
+          ),
+      ),
+    );
+
+    $form['asu_component_header']['asu_component_login_url'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Login URL'),
+      '#default_value' => variable_get('asu_component_header_login_url', '/cas'),
+      '#description' => t('Login URL for site.'),
+      '#required' => TRUE
+    );
+
+    $form['asu_component_header']['asu_component_header_logout_url'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Logout URL'),
+      '#default_value' => variable_get('asu_component_header_logout_url', '/caslogout'),
+      '#description' => t('Logout URL for site.'),
+      '#required' => TRUE
+    );
+
+  }
+  return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ *
+ * This hook declares how the configured options for a block
+ * provided by this module are saved.
+ */
+function asu_component_header_block_save($delta = '', $edit = array()) {
+  // We need to save settings from the configuration form.
+  // We need to check $delta to make sure we are saving the right block.
+  if ($delta == 'asu_component_header_block') {
+    // Have Drupal save the string to the database.
+    variable_set('asu_component_header_title', $edit['asu_component_header_title']);
+    variable_set('asu_component_header_parent_org', $edit['asu_component_header_parent_org']);
+    variable_set('asu_component_header_parent_org_url', $edit['asu_component_header_parent_org_url']);
+    variable_set('asu_component_header_sitemenu_injection_flag', $edit['asu_component_header_sitemenu_injection_flag']);
+    variable_set('asu_component_header_sitemenu_name', $edit['asu_component_header_sitemenu_name']);
+    variable_set('asu_component_header_login_url', $edit['asu_component_header_login_url']);
+    variable_set('asu_component_header_logout_url', $edit['asu_component_header_logout_url']);
+  }
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * This hook generates the contents of the blocks themselves.
+ */
+function asu_component_header_block_view($delta = '') {
+  // The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'asu_component_header_block':
+      // The subject is displayed at the top of the block. Note that it
+      // should be passed through t() for translation. The title configured
+      // for the block using Drupal UI supercedes this one.
+      $block['subject'] = t('ASU Component Header (asu_component_header_block)');
+      // The content of the block is typically generated by calling a custom
+      // function.
+      $block['content'] = asu_component_header_contents($delta);
+      break;
+
+    case 'asu_component_header_footer':
+      $block['subject'] = t('ASU Component Footer (asu_component_header_footer)');
+      $block['content'] = asu_component_header_contents($delta);
+      break;
+
+    default:
+      //break;
+  }
+  return $block;
+}
+
+/**
+ * A module-defined block content function.
+ */
+function asu_component_header_contents($which_block) {
+  switch ($which_block) {
+    case 'asu_component_header_block':
+
+      // Get settings.
+      $header_title = variable_get('asu_component_header_title', variable_get('site_name'));
+      $header_parent_org = variable_get('asu_component_header_parent_org', null);
+      $header_parent_org_url = variable_get('asu_component_header_parent_org_url', null);
+      $header_inject_menu = variable_get('asu_component_header_sitemenu_injection_flag', FALSE);
+      $header_menu_name = variable_get('asu_component_header_sitemenu_name', 'main-menu');
+      $header_login_url = variable_get('asu_component_header_login_url', '/cas');
+      $header_logout_url = variable_get('asu_component_header_logout_url', '/caslogout');
+
+
+      // Modules would typically perform some database queries to fetch the
+      // content for their blocks. Here, we'll just use the variable set in the
+      // block configuration or, if none has set, a default value.
+      // Block content can be returned in two formats: renderable arrays
+      // (as here) are preferred though a simple string will work as well.
+      // Block content created through the UI defaults to a string.
+      $result = array(
+        '#markup' =>  '<div id="headerContainer"></div>',
+      );
+
+
+      // get and build nav tree - then make it something cached.
+      $nav_tree = asu_component_header_get_nav_tree();
+
+
+      // Pass our props into Drupal.settings.
+      drupal_add_js(array(
+        'asuComponentHeader' => array(
+           'navTree' => $nav_tree,
+           'title' => $header_title,
+           'baseUrl' => base_path(),
+           'parentOrg' => $header_parent_org,
+           'parentOrgUrl' => $header_parent_org_url,
+           'loginLink' => $header_login_url,
+           'logoutLink' => $header_logout_url,
+        ),
+      ), 'setting');
+
+      // Init the Header
+      // Do we need to be inside the jQuery ready check?
+      drupal_add_js('jQuery(document).ready(function () {
+         // Header props from Drupal.settings.
+         var props = Drupal.settings.asuComponentHeader;
+
+         // Initialize the Header component.
+         componentsLibrary.initHeader(props);
+        });', array(
+        'type' => 'inline',
+        'scope' => 'footer',
+        //'weight' => 1,
+      ));
+
+      return $result;
+
+    case 'asu_component_header_footer':
+
+      // Add the CSS.
+      drupal_add_css(drupal_get_path('module', 'asu_component_header') . '/css/asu_component_header.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE));
+
+      // Alternate approach to add innovation image, via local asset:
+      // <a href="https://www.asu.edu/rankings"><img src="/' . drupal_get_path('module', 'asu_component_header') . '/img/Number-1-in-the-us-for-innovation@2x.png" alt="Number one in the U.S. for innovation. #1 ASU, #2 Stanford, #3 MIT. - U.S. News and World Report, 5 years, 2016-2020"></a>
+
+      $footer = '
+<footer role="contentinfo">
+  <div class="wrapper" id="wrapper-footer-innovation">
+    <div class="container" id="footer-innovation">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex footer-innovation-links">
+            <a href="https://www.asu.edu/rankings"><img src="https://www.asu.edu/asuthemes/5.0/assets/Number-1-in-the-us-for-innovation@2x.png" alt="Number one in the U.S. for innovation. #1 ASU, #2 Stanford, #3 MIT. - U.S. News and World Report, 6 years, 2016-2021"></a>
+            <nav class="nav" aria-label="University Services">
+              <a class="nav-link" href="https://www.asu.edu/map/">Maps and Locations</a>
+              <a class="nav-link" href="https://www.asu.edu/asujobs">Jobs</a>
+              <a class="nav-link" href="https://isearch.asu.edu/">Directory</a>
+              <a class="nav-link" href="https://www.asu.edu/contactasu/">Contact ASU</a>
+              <a class="nav-link" href="https://my.asu.edu/">My ASU</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper" id="wrapper-footer-colophon">
+    <div class="container" id="footer-colophon">
+      <div class="row">
+        <div class="col">
+          <nav class="nav colophon" aria-label="University Legal and Compliance">
+            <a class="nav-link" href="https://www.asu.edu/copyright/">Copyright and Trademark</a>
+            <a class="nav-link" href="https://www.asu.edu/accessibility/">Accessibility</a>
+            <a class="nav-link" href="https://www.asu.edu/privacy/">Privacy</a>
+            <a class="nav-link" href="https://www.asu.edu/tou/">Terms of Use</a>
+            <a class="nav-link" href="https://www.asu.edu/emergency/">Emergency</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>';
+
+      return $footer;
+
+    default:
+      return;
+  }
+}
+
+/**
+ * Custom helper function to get list of Drupal menus.
+ */
+function asu_component_header_get_site_menu_options() {
+  return menu_get_menus();
+}
+
+/**
+ * Helper function to build and deliver the nav tree for the header menu.
+ */
+function asu_component_header_get_nav_tree() {
+  $menu_name = variable_get('asu_component_header_sitemenu_name', 'main-menu');
+  // Render array, so values should be safe.
+  $menu_tree = menu_tree_all_data($menu_name);
+
+  $nav_tree = [ ];
+  $nav_tree[0]->href = base_path();
+  $nav_tree[0]->text = t('Home');
+  $nav_tree[0]->type = 'icon';
+  $nav_tree[0]->class = 'home';
+  $i = 1;
+  foreach ($menu_tree as $item) {
+    // Menu items may be hidden. Don't display them.
+    if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
+      $nav_tree[$i]->href = $item['link']['link_path'];
+      $nav_tree[$i]->text = $item['link']['title'];
+      if ($item['below']) {
+        $a = 0;
+        foreach ($item['below'] as $sub_item) {
+          // Sub items can be hidden, too.
+          if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
+            $nav_tree[$i]->items[0][$a]->href = $sub_item['link']['link_path'];
+            $nav_tree[$i]->items[0][$a]->text = $sub_item['link']['title'];
+            $a++; // Increment for sub item.
+          }
+        }
+      }
+      $i++; // Increment for parent item.
+    }
+  }
+
+  return $nav_tree;
+}
+
+/**
+ * @} End of "defgroup asu_component_header".
+ */

@@ -1,0 +1,9 @@
+name = ASU Component Header for D7 (Preact)
+description = Module to add @asu-design-system/components-library Header and surface it as a block.
+core = 7.x
+package = ASU
+;dependencies[] = "composer_manager"
+dependencies[] = "cas"
+files[] = asu_component_header.module
+scripts[] = node_modules/@asu-design-system/components-library/dist/vendor.js
+scripts[] = /node_modules/@asu-design-system/components-library/dist/components-library.js
