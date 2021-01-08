@@ -1,3 +1,5 @@
+ASU COMPONENT HEADER MODULE FOR DRUPAL 7, WEB STANDARDS 2.0
+
 DESCRIPTION
 --------------------------
 Module to add a Web Standards 2 Preact-based Header component as a block. Also 
