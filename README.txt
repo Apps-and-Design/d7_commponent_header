@@ -19,7 +19,7 @@ Standard Drupal module installation.
 
 Check out the module code from this repo and install in your Drupal modules 
 folder. It's recommended to make sure the module's folder is named 
-"asu_components_header" to match the module's machine name. 
+"asu_component_header" to match the module's machine name. 
 
 All dependencies are packaged within the module, no further libraries to 
 download.
