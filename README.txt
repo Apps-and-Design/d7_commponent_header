@@ -3,6 +3,12 @@ DESCRIPTION
 Module to add a Web Standards 2 Preact-based Header component as a block. Also 
 provides a static, basic HTML and CSS Web Standards 2 Footer.
 
+This is an alternative method of adding the ASU Web Standards 2.0 Header and 
+Footer to a Drupal 7 site that doesn't depend on Webspark or a Webspark-related
+theme. If your site is not built on Webspark or is but includes extensive 
+customization, this module is intended to allow you to drop in the updated 
+header and footer with only minor tweaking of HTML and CSS in your theme.
+
 
 INSTALLATION
 --------------------------
