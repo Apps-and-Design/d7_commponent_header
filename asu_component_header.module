@@ -349,6 +349,7 @@ function asu_component_header_get_nav_tree() {
   foreach ($menu_tree as $item) {
     // Menu items may be hidden. Don't display them.
     if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
+      $nav_tree[$i] = new \stdClass();
       $nav_tree[$i]->href = $item['link']['link_path'];
       $nav_tree[$i]->text = $item['link']['title'];
       if ($item['below']) {
