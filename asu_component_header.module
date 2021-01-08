@@ -340,7 +340,7 @@ function asu_component_header_get_nav_tree() {
   // Render array, so values should be safe.
   $menu_tree = menu_tree_all_data($menu_name);
 
-  $nav_tree = [ ];
+  $nav_tree = [ new \stdClass() ];
   $nav_tree[0]->href = base_path();
   $nav_tree[0]->text = t('Home');
   $nav_tree[0]->type = 'icon';
