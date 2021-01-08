@@ -226,7 +226,6 @@ function asu_component_header_contents($which_block) {
       $header_login_url = variable_get('asu_component_header_login_url', '/cas');
       $header_logout_url = variable_get('asu_component_header_logout_url', '/caslogout');
 
-
       // Modules would typically perform some database queries to fetch the
       // content for their blocks. Here, we'll just use the variable set in the
       // block configuration or, if none has set, a default value.
@@ -237,22 +236,24 @@ function asu_component_header_contents($which_block) {
         '#markup' =>  '<div id="headerContainer"></div>',
       );
 
-
-      // get and build nav tree - then make it something cached.
-      $nav_tree = asu_component_header_get_nav_tree();
-
+      $header_props = array(
+         'title' => $header_title,
+         'baseUrl' => base_path(),
+         'parentOrg' => $header_parent_org,
+         'parentOrgUrl' => $header_parent_org_url,
+         'loginLink' => $header_login_url,
+         'logoutLink' => $header_logout_url,
+      );
+      // If we are injecting the menu, add it to params.
+      if ($header_inject_menu) {
+        // Get and build nav tree.
+        $nav_tree = asu_component_header_get_nav_tree();
+        $header_props['navTree'] = $nav_tree;
+      }
 
       // Pass our props into Drupal.settings.
       drupal_add_js(array(
-        'asuComponentHeader' => array(
-           'navTree' => $nav_tree,
-           'title' => $header_title,
-           'baseUrl' => base_path(),
-           'parentOrg' => $header_parent_org,
-           'parentOrgUrl' => $header_parent_org_url,
-           'loginLink' => $header_login_url,
-           'logoutLink' => $header_logout_url,
-        ),
+        'asuComponentHeader' => $header_props,
       ), 'setting');
 
       // Init the Header
