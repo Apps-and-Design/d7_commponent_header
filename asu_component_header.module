@@ -357,6 +357,7 @@ function asu_component_header_get_nav_tree() {
         foreach ($item['below'] as $sub_item) {
           // Sub items can be hidden, too.
           if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
+            $nav_tree[$i]->items[0][$a] = new \stdClass();
             $nav_tree[$i]->items[0][$a]->href = $sub_item['link']['link_path'];
             $nav_tree[$i]->items[0][$a]->text = $sub_item['link']['title'];
             $a++; // Increment for sub item.
