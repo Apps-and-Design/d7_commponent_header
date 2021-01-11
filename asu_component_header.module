@@ -351,7 +351,7 @@ function asu_component_header_get_nav_tree() {
     // Menu items may be hidden. Don't display them.
     if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
       $nav_tree[$i] = new \stdClass();
-      $nav_tree[$i]->href = $item['link']['link_path'];
+      $nav_tree[$i]->href = asu_component_header_is_link_url($item['link']['link_path']) ? $item['link']['link_path'] : '/' . $item['link']['link_path'];
       $nav_tree[$i]->text = $item['link']['title'];
       if ($item['below']) {
         $a = 0;
@@ -359,7 +359,7 @@ function asu_component_header_get_nav_tree() {
           // Sub items can be hidden, too.
           if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
             $nav_tree[$i]->items[0][$a] = new \stdClass();
-            $nav_tree[$i]->items[0][$a]->href = $sub_item['link']['link_path'];
+            $nav_tree[$i]->items[0][$a]->href = asu_component_header_is_link_url($sub_item['link']['link_path']) ? $sub_item['link']['link_path'] : '/' . $sub_item['link']['link_path'];
             $nav_tree[$i]->items[0][$a]->text = $sub_item['link']['title'];
             $a++; // Increment for sub item.
           }
@@ -370,6 +370,21 @@ function asu_component_header_get_nav_tree() {
   }
 
   return $nav_tree;
+}
+
+/**
+ * Helper function to check if a link path is a full URL or just a path.
+ */
+function asu_component_header_is_link_url($link) {
+  $is_absolute = FALSE;
+  if (strpos($link, 'http://') !== FALSE) {
+    $is_absolute = TRUE;
+  }
+  if (strpos($link, 'https://') !== FALSE) {
+    $is_absolute = TRUE;
+  }
+
+  return $is_absolute;
 }
 
 /**
