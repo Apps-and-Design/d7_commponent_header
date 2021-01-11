@@ -351,7 +351,7 @@ function asu_component_header_get_nav_tree() {
     // Menu items may be hidden. Don't display them.
     if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
       $nav_tree[$i] = new \stdClass();
-      $nav_tree[$i]->href = asu_component_header_is_link_url($item['link']['link_path']) ? $item['link']['link_path'] : '/' . $item['link']['link_path'];
+      $nav_tree[$i]->href = asu_component_header_prep_link($item['link']['link_path']);
       $nav_tree[$i]->text = $item['link']['title'];
       if ($item['below']) {
         $a = 0;
@@ -359,7 +359,7 @@ function asu_component_header_get_nav_tree() {
           // Sub items can be hidden, too.
           if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
             $nav_tree[$i]->items[0][$a] = new \stdClass();
-            $nav_tree[$i]->items[0][$a]->href = asu_component_header_is_link_url($sub_item['link']['link_path']) ? $sub_item['link']['link_path'] : '/' . $sub_item['link']['link_path'];
+            $nav_tree[$i]->items[0][$a]->href = asu_component_header_prep_link($sub_item['link']['link_path']);
             $nav_tree[$i]->items[0][$a]->text = $sub_item['link']['title'];
             $a++; // Increment for sub item.
           }
@@ -373,18 +373,33 @@ function asu_component_header_get_nav_tree() {
 }
 
 /**
- * Helper function to check if a link path is a full URL or just a path.
+ * Helper function to check if a link path is a full URL or just a path
+ * and to set to alias path if is relative UrL and alias exists.
  */
-function asu_component_header_is_link_url($link) {
-  $is_absolute = FALSE;
+function asu_component_header_prep_link($link) {
   if (strpos($link, 'http://') !== FALSE) {
-    $is_absolute = TRUE;
+    $prepped_link = $link;
   }
   if (strpos($link, 'https://') !== FALSE) {
-    $is_absolute = TRUE;
+    $prepped_link = $link;
   }
 
-  return $is_absolute;
+  // No prepped link yet? This is a relative link, so check for alias.
+  if (!isset($prepped_link)) {
+    $alias = drupal_get_path_alias($link);
+    // Use alias.
+    if ($alias != '') {
+      // Also need to add /.
+      $prepped_link = '/' . $alias;
+    }
+    // No alias, fallback to link.
+    else {
+      // Also need to add /.
+      $prepped_link = '/' . $link;
+    }
+  }
+
+  return $prepped_link;
 }
 
 /**
