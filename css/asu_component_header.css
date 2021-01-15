@@ -1,3 +1,9 @@
+body {
+  /* Force the page content down to accommodate the header. May need to adjust based on your theme. */
+  margin-top: 158px !important;
+}
+
+
 .navbar-brand { /* Tweak for alignment issue between header and footer and content */
   margin-left: 32px !important;
 }
