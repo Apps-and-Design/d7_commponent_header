@@ -3,7 +3,6 @@ body {
   margin-top: 158px !important;
 }
 
-
 .navbar-brand { /* Tweak for alignment issue between header and footer and content */
   margin-left: 32px !important;
 }
@@ -109,5 +108,3 @@ footer #wrapper-footer-colophon nav a {
   }
 }
 */
-
-
