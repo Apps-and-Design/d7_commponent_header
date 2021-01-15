@@ -21,6 +21,11 @@ Check out the module code from this repo and install in your Drupal modules
 folder. It's recommended to make sure the module's folder is named 
 "asu_component_header" to match the module's machine name. 
 
+If you use the Admin Menu module, please turn off "Adjust top margin" in
+that module's settings, as it aggressively overrides spacing rules used
+by the ASU Component Header. Visit /admin/config/administration/admin-menu
+to do that.
+
 All dependencies are packaged within the module, no further libraries to 
 download.
 
