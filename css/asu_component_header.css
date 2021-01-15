@@ -1,3 +1,7 @@
+.navbar-brand { /* Tweak for alignment issue between header and footer and content */
+  margin-left: 32px !important;
+}
+
 footer #wrapper-footer-innovation .row, footer #wrapper-footer-colophon .row {
   margin: 0 auto;
   width: 1170px;
@@ -41,6 +45,7 @@ footer #wrapper-footer-colophon nav a {
   footer #wrapper-footer-innovation .row, footer #wrapper-footer-colophon .row {
       max-width: 1224px;
       width: 100%;
+      margin-left: 24px;
   }
 }
 @media (max-width: 992px) {
