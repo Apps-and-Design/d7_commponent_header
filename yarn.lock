@@ -3,16 +3,16 @@
 
 
 "@asu-design-system/components-library@^1.1.14":
-  version "1.1.16"
-  resolved "https://registry.web.asu.edu/@asu-design-system%2fcomponents-library/-/components-library-1.1.16.tgz#06cf2040de8e2fa91a98c9d5e1fa28a4123f0d91"
-  integrity sha512-saU2SCnRtFHGI7N/CZjBTs6iQZipCzh12q9oJ4bbwwF92SemPmTrmRjIZscKhqU9TlxZ4HUDFYqBYFyI18AAZg==
+  version "1.1.17"
+  resolved "https://registry.web.asu.edu/@asu-design-system%2fcomponents-library/-/components-library-1.1.17.tgz#04e37a61ad26a4f0c6c03e730585d4a7803b1f7d"
+  integrity sha512-s1+Bmam8PH7FX/q4171wdo/PFohfrptqmrIbc5EfKatd5WS83ZUWrwKKdUqYteossXeDefgVWj2sIeuEV7o7pQ==
   dependencies:
     "@asu-design-system/design-tokens" "^1.1.0"
     "@fortawesome/fontawesome-svg-core" "^1.2.30"
     "@fortawesome/free-solid-svg-icons" "^5.14.0"
     "@fortawesome/react-fontawesome" "^0.1.11"
     emotion "^10.0.27"
-    preact "^10.4.8"
+    preact "^10.5.10"
     prop-types "^15.7.2"
 
 "@asu-design-system/design-tokens@^1.1.0":
@@ -349,9 +349,9 @@ parent-module@^1.0.0:
     callsites "^3.0.0"
 
 parse-json@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/parse-json/-/parse-json-5.1.0.tgz#f96088cdf24a8faa9aea9a009f2d9d942c999646"
-  integrity sha512-+mi/lmVVNKFNVyLXV31ERiy2CY5E1/F6QtJFEzoChPRwwngMNXRDQ9GJ5WdE2Z2P4AujsOi0/+2qHID68KwfIQ==
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/parse-json/-/parse-json-5.2.0.tgz#c76fc66dee54231c962b22bcc8a72cf2f99753cd"
+  integrity sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     error-ex "^1.3.1"
@@ -368,7 +368,7 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-preact@^10.4.8:
+preact@^10.5.10:
   version "10.5.10"
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.10.tgz#8de7bf669e965a51fc9e45a6fd1e97a47af383e6"
   integrity sha512-A6SITnHaj5CS4JPLVroQDNOEozq4Y0B4yQSGHLznxHe66Jb2DvoeTEibLjXmfeofgQE3BZ2zurltBIapzCMlwg==
