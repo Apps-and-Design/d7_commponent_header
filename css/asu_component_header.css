@@ -54,6 +54,9 @@ footer #wrapper-footer-colophon nav a {
   }
 }
 @media (max-width: 992px) {
+  .navbar-brand { /* Remove tweak for alignment issue between header and footer and content for mobile */
+    margin-left: 0 !important;
+  }
   footer #wrapper-footer-innovation .row, footer #wrapper-footer-colophon .row {
       max-width: 992px;
       width: 100%
