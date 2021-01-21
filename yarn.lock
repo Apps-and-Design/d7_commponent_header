@@ -3,9 +3,9 @@
 
 
 "@asu-design-system/components-library@^1.1.14":
-  version "1.1.17"
-  resolved "https://registry.web.asu.edu/@asu-design-system%2fcomponents-library/-/components-library-1.1.17.tgz#04e37a61ad26a4f0c6c03e730585d4a7803b1f7d"
-  integrity sha512-s1+Bmam8PH7FX/q4171wdo/PFohfrptqmrIbc5EfKatd5WS83ZUWrwKKdUqYteossXeDefgVWj2sIeuEV7o7pQ==
+  version "1.1.18"
+  resolved "https://registry.web.asu.edu/@asu-design-system%2fcomponents-library/-/components-library-1.1.18.tgz#6adb22b053b6e16364b82fe1c654ba17ca7948f3"
+  integrity sha512-rd4UOtLSvdJymbdRAlb6Dkbz9W1f9kFioNB+yjytj81NNxJ9dm7fOzSRGvxTWSQNUYrbmogsLRgE86wwzf5RSg==
   dependencies:
     "@asu-design-system/design-tokens" "^1.1.0"
     "@fortawesome/fontawesome-svg-core" "^1.2.30"
@@ -369,9 +369,9 @@ path-type@^4.0.0:
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
 preact@^10.5.10:
-  version "10.5.10"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.10.tgz#8de7bf669e965a51fc9e45a6fd1e97a47af383e6"
-  integrity sha512-A6SITnHaj5CS4JPLVroQDNOEozq4Y0B4yQSGHLznxHe66Jb2DvoeTEibLjXmfeofgQE3BZ2zurltBIapzCMlwg==
+  version "10.5.11"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.11.tgz#2c8a431f16613e442901068175771806cf1cc0f6"
+  integrity sha512-BdtFePVilR1430kDuzh3VkkZktCmp8RTqHOjG8qesyGZXHNYJjdrjEBuc2f7O/vthhVENxJd0/aTjWtYeH46aw==
 
 prop-types@^15.7.2:
   version "15.7.2"
