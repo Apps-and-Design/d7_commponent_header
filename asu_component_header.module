@@ -351,7 +351,7 @@ function asu_component_header_get_nav_tree() {
     // Menu items may be hidden. Don't display them.
     if (isset($item['link']['hidden']) && $item['link']['hidden'] != 1) {
       $nav_tree[$i] = new \stdClass();
-      $nav_tree[$i]->href = asu_component_header_prep_link($item['link']['link_path']);
+      $nav_tree[$i]->href = asu_component_header_prep_link($item['link']);
       $nav_tree[$i]->text = $item['link']['title'];
       if ($item['below']) {
         $a = 0;
@@ -359,7 +359,7 @@ function asu_component_header_get_nav_tree() {
           // Sub items can be hidden, too.
           if (isset($sub_item['link']['hidden']) && $sub_item['link']['hidden'] != 1) {
             $nav_tree[$i]->items[0][$a] = new \stdClass();
-            $nav_tree[$i]->items[0][$a]->href = asu_component_header_prep_link($sub_item['link']['link_path']);
+            $nav_tree[$i]->items[0][$a]->href = asu_component_header_prep_link($sub_item['link']);
             $nav_tree[$i]->items[0][$a]->text = $sub_item['link']['title'];
             $a++; // Increment for sub item.
           }
@@ -376,7 +376,10 @@ function asu_component_header_get_nav_tree() {
  * Helper function to check if a link path is a full URL or just a path
  * and to set to alias path if is relative UrL and alias exists.
  */
-function asu_component_header_prep_link($link) {
+function asu_component_header_prep_link($link_array) {
+  $link = $link_array['link_path'];
+  $link_query = isset($link_array['options']['query']) ? ((strpos($link, '?') !== FALSE ? '&' : '?') . drupal_http_build_query($link_array['options']['query'])) : '';
+
   if (strpos($link, 'http://') !== FALSE) {
     $prepped_link = $link;
   }
@@ -399,7 +402,7 @@ function asu_component_header_prep_link($link) {
     }
   }
 
-  return $prepped_link;
+  return $prepped_link . $link_query;
 }
 
 /**
