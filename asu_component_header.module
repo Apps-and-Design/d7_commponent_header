@@ -274,7 +274,7 @@ function asu_component_header_contents($which_block) {
 
       // Init the Header
       // Do we need to be inside the jQuery ready check?
-      drupal_add_js('jQuery(document).ready(function () {
+      drupal_add_js("jQuery(document).ready(function () {
          // Header props from Drupal.settings.
          var props = Drupal.settings.asuComponentHeader;
 
@@ -296,7 +296,7 @@ function asu_component_header_contents($which_block) {
 
          // Initialize the Header component.
          componentsLibrary.initHeader(props);
-        });', array(
+        });", array(
         'type' => 'inline',
         'scope' => 'footer',
         //'weight' => 1,
