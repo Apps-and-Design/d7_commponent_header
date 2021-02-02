@@ -221,7 +221,7 @@ function asu_component_header_contents($which_block) {
       $header_title = variable_get('asu_component_header_title', variable_get('site_name'));
       $header_parent_org = variable_get('asu_component_header_parent_org', null);
       $header_parent_org_url = variable_get('asu_component_header_parent_org_url', null);
-      $header_inject_menu = variable_get('asu_component_header_sitemenu_injection_flag', FALSE);
+      $header_inject_menu = variable_get('asu_component_header_sitemenu_injection_flag', 1);
       $header_menu_name = variable_get('asu_component_header_sitemenu_name', 'main-menu');
       $header_login_url = variable_get('asu_component_header_login_url', '/cas');
       $header_logout_url = variable_get('asu_component_header_logout_url', '/caslogout');
