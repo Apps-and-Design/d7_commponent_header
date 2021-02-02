@@ -257,8 +257,9 @@ function asu_component_header_contents($which_block) {
       $acct = $user;
       if ($acct->uid > 0) { // User is logged in
         $header_props['loggedIn'] = TRUE;
-        // Lean on component to get the name for us.
-        $header_props['userName'] = $acct->name;
+        // If we have the SSONAME cookie, use that name. Fallback to 
+        // ASURITE/username.
+        $header_props['userName'] = isset($_COOKIE['SSONAME']) ? check_plain($_COOKIE['SSONAME']) : $acct->name;
       }
       else { // Force header to match Drupal login state even if there's a SSO session.
         $header_props['loggedIn'] = FALSE;
