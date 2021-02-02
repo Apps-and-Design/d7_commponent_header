@@ -258,7 +258,8 @@ function asu_component_header_contents($which_block) {
       if ($acct->uid > 0) { // User is logged in
         $header_props['loggedIn'] = TRUE;
         // If we have the SSONAME cookie, use that name. Fallback to 
-        // ASURITE/username.
+        // ASURITE/username. See also JS solve we have as a backup for
+        // when Pantheon strips cookies, below in drupal_add_js().
         $header_props['userName'] = isset($_COOKIE['SSONAME']) ? check_plain($_COOKIE['SSONAME']) : $acct->name;
       }
       else { // Force header to match Drupal login state even if there's a SSO session.
@@ -276,6 +277,22 @@ function asu_component_header_contents($which_block) {
       drupal_add_js('jQuery(document).ready(function () {
          // Header props from Drupal.settings.
          var props = Drupal.settings.asuComponentHeader;
+
+         // Pantheon strips some cookie values before they hit PHP, so
+         // Attempt to get userName prop in JS here for those instances.
+         var name = 'SSONAME=';
+         var decodedCookie = decodeURIComponent(document.cookie);
+         var ca = decodedCookie.split(';');
+         for(var i = 0; i <ca.length; i++) {
+           var c = ca[i];
+           while (c.charAt(0) == ' ') {
+             c = c.substring(1);
+           }
+           if (c.indexOf(name) == 0) {
+             // Patch SSONAME into props.
+             props.userName = c.substring(name.length, c.length);
+           }
+         }
 
          // Initialize the Header component.
          componentsLibrary.initHeader(props);
