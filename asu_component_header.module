@@ -85,8 +85,8 @@ function asu_component_header_block_configure($delta = '') {
     // parentOrg - implemented as asu_component_header_parent_org setting.
     // parentOrgUrl - implemented as asu_component_header_parent_org_url setting.
     // logo - TODO HOLD for future, to support partner logos?
-    // loggedIn - relies on default component behavior
-    // userName - relies on default component behavior
+    // loggedIn - relies on default component behavior + details from us
+    // userName - relies on default component behavior + details from us
     // loginLink - TODO
     // logoutLink - TODO
     // buttons - TODO HOLD for future dev.
@@ -249,6 +249,20 @@ function asu_component_header_contents($which_block) {
         // Get and build nav tree.
         $nav_tree = asu_component_header_get_nav_tree();
         $header_props['navTree'] = $nav_tree;
+      }
+
+      // Override default behavior for logged in/out detection to
+      // rely on Drupal instead.
+      global $user;
+      $acct = $user;
+      if ($acct->uid > 0) { // User is logged in
+        $header_props['loggedIn'] = TRUE;
+        // Lean on component to get the name for us.
+        $header_props['userName'] = $acct->name;
+      }
+      else { // Force header to match Drupal login state even if there's a SSO session.
+        $header_props['loggedIn'] = FALSE;
+        $header_props['userName'] = '';
       }
 
       // Pass our props into Drupal.settings.
