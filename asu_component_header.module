@@ -132,7 +132,7 @@ function asu_component_header_block_configure($delta = '') {
       '#title' => t('Menu to inject'),
       '#description' => t('Select the site menu to inject.'),
       '#options' => asu_component_header_get_site_menu_options(),
-      '#default_value' => variable_get('asu_component_header_sitemenu_name', ASU_BRAND_SITE_MENU_NAME_DEFAULT),
+      '#default_value' => variable_get('asu_component_header_sitemenu_name', 'main-menu'),
       '#states' => array(
           'visible' => array(
               ':input[name="asu_component_header_sitemenu_injection_flag"]' => array('checked' => TRUE),
