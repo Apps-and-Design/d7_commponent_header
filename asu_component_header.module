@@ -140,7 +140,7 @@ function asu_component_header_block_configure($delta = '') {
       ),
     );
 
-    $form['asu_component_header']['asu_component_login_url'] = array(
+    $form['asu_component_header']['asu_component_header_login_url'] = array(
       '#type' => 'textfield',
       '#title' => t('Login URL'),
       '#default_value' => variable_get('asu_component_header_login_url', '/cas'),
