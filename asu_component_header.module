@@ -321,10 +321,10 @@ function asu_component_header_contents($which_block) {
           <div class="d-flex footer-innovation-links">
             <a href="https://www.asu.edu/rankings"><img src="https://www.asu.edu/asuthemes/5.0/assets/Number-1-in-the-us-for-innovation@2x.png" alt="Number one in the U.S. for innovation. #1 ASU, #2 Stanford, #3 MIT. - U.S. News and World Report, 6 years, 2016-2021"></a>
             <nav class="nav" aria-label="University Services">
-              <a class="nav-link" href="https://www.asu.edu/map/">Maps and Locations</a>
+              <a class="nav-link" href="https://www.asu.edu/about/locations-maps">Maps and Locations</a>
               <a class="nav-link" href="https://www.asu.edu/asujobs">Jobs</a>
               <a class="nav-link" href="https://isearch.asu.edu/">Directory</a>
-              <a class="nav-link" href="https://www.asu.edu/contactasu/">Contact ASU</a>
+              <a class="nav-link" href="https://www.asu.edu/about/contact">Contact ASU</a>
               <a class="nav-link" href="https://my.asu.edu/">My ASU</a>
             </nav>
           </div>
@@ -338,10 +338,10 @@ function asu_component_header_contents($which_block) {
       <div class="row">
         <div class="col">
           <nav class="nav colophon" aria-label="University Legal and Compliance">
-            <a class="nav-link" href="https://www.asu.edu/copyright/">Copyright and Trademark</a>
+            <a class="nav-link" href="https://www.asu.edu/about/copyright-trademark">Copyright and Trademark</a>
             <a class="nav-link" href="https://www.asu.edu/accessibility/">Accessibility</a>
-            <a class="nav-link" href="https://www.asu.edu/privacy/">Privacy</a>
-            <a class="nav-link" href="https://www.asu.edu/tou/">Terms of Use</a>
+            <a class="nav-link" href="https://www.asu.edu/about/privacy">Privacy</a>
+            <a class="nav-link" href="https://www.asu.edu/about/terms-of-use">Terms of Use</a>
             <a class="nav-link" href="https://www.asu.edu/emergency/">Emergency</a>
           </nav>
         </div>
